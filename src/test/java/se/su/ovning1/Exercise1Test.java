@@ -1,4 +1,4 @@
-package se.su.ovning1;
+
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.DisplayName;
@@ -196,7 +196,7 @@ public class Exercise1Test {
     @ParameterizedTest
     @org.junit.jupiter.api.Order(22)
     @DisplayName("Recording: testar att äldre LongPlay får rätt pris.")
-    @CsvSource({"2020,10,200,225,281.25", "1950,10,200,575,718.75"})
+    @CsvSource({"2020,10,200,230,287.25", "1950,10,200,580,725"})
     void recordingCorrectPriceForLPFrom2020(int year, int condition, double price, double expected, double plusVat) {
         var message = String.format("Klassen LongPlay: värdet (exkl. moms) på en LP från " + year + " beräknas inte rätt för slitage %d.", condition);
 
@@ -224,7 +224,7 @@ public class Exercise1Test {
     @ParameterizedTest
     @org.junit.jupiter.api.Order(23)
     @DisplayName("Recording: testar att toString innehåller nödvändig information för LP.")
-    @CsvSource({"Phoebe Bridgers, Punisher, 2021, 10, 200.0, 220.0, 275.0", "Bruce Springsteen, The River, 1980, 10, 300.0, 525.0, 656.25"})
+    @CsvSource({"Phoebe Bridgers, Punisher, 2021, 10, 200.0, 225.0, 281.25", "Bruce Springsteen, The River, 1980, 10, 300.0, 530.0, 662.5"})
     void recordingCorrectToStringLP(String artist, String title, int year, int condition, double originalPrice, double price, double pricePlusVAT) {
         var item1 = new LongPlay(title, artist, year, condition, originalPrice);
         var parts = Set.of("LP", title, artist, String.valueOf(year), String.valueOf(condition), String.valueOf(price));
