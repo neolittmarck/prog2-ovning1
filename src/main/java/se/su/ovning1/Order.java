@@ -15,7 +15,8 @@ public class Order {
     }
 
     public String getReceipt(){
-        return items.toString();
+        counter = items.size();
+        return counter + "items, ordernumber: " + orderNumber + " " + items.toString();
     }
 
     public double getTotalValuePlusVAT(){
