@@ -1,5 +1,6 @@
 package se.su.ovning1;
 
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.MethodOrderer;
@@ -183,7 +184,7 @@ public class Exercise1Test {
     @ParameterizedTest
     @org.junit.jupiter.api.Order(21)
     @DisplayName("Recording: testar att LongPlay får rätt pris.")
-    @CsvSource({"2025,10,200,200,250", "2025,5,200,100,125", "2025,1,200,20,25", "2025,0,200,10,12.5"})
+    @CsvSource({"2026,10,200,200,250", "2026,5,200,100,125", "2026,1,200,20,25", "2026,0,200,10,12.5"})
     void recordingCorrectPriceForLP(int year, int condition, double price, double expected, double plusVat) {
         var message = String.format("Klassen LongPlay: värdet (exkl. moms) på en LP beräknas inte rätt för slitage %d.", condition);
 
@@ -196,7 +197,7 @@ public class Exercise1Test {
     @ParameterizedTest
     @org.junit.jupiter.api.Order(22)
     @DisplayName("Recording: testar att äldre LongPlay får rätt pris.")
-    @CsvSource({"2020,10,200,225,281.25", "1950,10,200,575,718.75"})
+    @CsvSource({"2020,10,200,230,287.5", "1950,10,200,580,725"})
     void recordingCorrectPriceForLPFrom2020(int year, int condition, double price, double expected, double plusVat) {
         var message = String.format("Klassen LongPlay: värdet (exkl. moms) på en LP från " + year + " beräknas inte rätt för slitage %d.", condition);
 
@@ -224,7 +225,7 @@ public class Exercise1Test {
     @ParameterizedTest
     @org.junit.jupiter.api.Order(23)
     @DisplayName("Recording: testar att toString innehåller nödvändig information för LP.")
-    @CsvSource({"Phoebe Bridgers, Punisher, 2021, 10, 200.0, 220.0, 275.0", "Bruce Springsteen, The River, 1980, 10, 300.0, 525.0, 656.25"})
+    @CsvSource({"Phoebe Bridgers, Punisher, 2021, 10, 200.0, 225.0, 281.25", "Bruce Springsteen, The River, 1980, 10, 300.0, 530.0, 662.5"})
     void recordingCorrectToStringLP(String artist, String title, int year, int condition, double originalPrice, double price, double pricePlusVAT) {
         var item1 = new LongPlay(title, artist, year, condition, originalPrice);
         var parts = Set.of("LP", title, artist, String.valueOf(year), String.valueOf(condition), String.valueOf(price));
@@ -240,7 +241,7 @@ public class Exercise1Test {
     @org.junit.jupiter.api.Order(24)
     @DisplayName("Recording: testar att värdet inte hamnar under 10.0.")
     void recordingGetsCorrectMinimumValue() {
-        Recording item = new LongPlay("test", "test", 2025, 1, 90);
+        Recording item = new LongPlay("test", "test", 2026, 1, 90);
         assertEquals(10.0, item.getPrice(), "Fel värde för Longplay med condition 1.");
 
         item = new CompactDisc("test", "test", 2024, 0, 5);
@@ -338,13 +339,13 @@ Total incl. VAT: 1017.75
         order = new Order(book2, item1, cd2);
         receipt = order.getReceipt();
 
-        assertEquals(880.0, order.getTotalValue(), ORDER_INCORRECT_VALUE_EXCL_VAT);
-        assertEquals(1024, order.getTotalValuePlusVAT(), ORDER_INCORRECT_VALUE_INCL_VAT);
+        assertEquals(885.0, order.getTotalValue(), ORDER_INCORRECT_VALUE_EXCL_VAT);
+        assertEquals(1030.25, order.getTotalValuePlusVAT(), ORDER_INCORRECT_VALUE_INCL_VAT);
 
         part = Set.of("Book", "Beethoven: a biography", "Holmqvist", "false", "400.0", "424.0");
         assertTrue(part.stream().allMatch(receipt::contains), String.format(message, part, receipt));
 
-        part = Set.of("Giant Steps", "John Coltrane", "1959", "LP", "10", "100.0", "430.0", "537.5");
+        part = Set.of("Giant Steps", "John Coltrane", "1959", "LP", "10", "100.0", "435.0", "543.75");
         assertTrue(part.stream().allMatch(receipt::contains), String.format(message, part, receipt));
 
         part = Set.of("Kind of Blue", "Miles Davis", "1959", "CD", "5", "100.0", "50.0", "62.5");
@@ -363,8 +364,8 @@ Total incl. VAT: 631.25
         order = new Order(lp1, lp2, lp3);
         receipt = order.getReceipt();
 
-        assertEquals(540.0, order.getTotalValue(), ORDER_INCORRECT_VALUE_EXCL_VAT);
-        assertEquals(675.00, order.getTotalValuePlusVAT(), ORDER_INCORRECT_VALUE_INCL_VAT);
+        assertEquals(550.0, order.getTotalValue(), ORDER_INCORRECT_VALUE_EXCL_VAT);
+        assertEquals(687.5, order.getTotalValuePlusVAT(), ORDER_INCORRECT_VALUE_INCL_VAT);
 
         part = Set.of("Punisher", "Phoebe Bridgers", "2020", "CD", "10", "200.0", "250.0");
         assertTrue(part.stream().allMatch(receipt::contains), String.format(message, part, receipt));
